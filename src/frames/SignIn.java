@@ -198,11 +198,6 @@ public class SignIn extends javax.swing.JFrame {
 
         lb_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/x.png"))); // NOI18N
         lb_exit.setToolTipText("");
-        lb_exit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lb_exitMouseClicked(evt);
-            }
-        });
 
         lb_mini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar.png"))); // NOI18N
 
@@ -345,10 +340,6 @@ public class SignIn extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lb_exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_exitMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lb_exitMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
