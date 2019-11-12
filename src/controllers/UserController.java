@@ -63,6 +63,7 @@ public class UserController {
                 ps.setString(2, pass);
                 ps.setString(3, email);
                 ps.execute();
+                JOptionPane.showMessageDialog(null, "ADDED");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
