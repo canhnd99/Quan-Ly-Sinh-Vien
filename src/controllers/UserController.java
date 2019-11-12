@@ -2,6 +2,7 @@ package controllers;
 
 import connections.ConnectToDatabase;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,24 +12,66 @@ import models.User;
 
 public class UserController {
 
-    public boolean checkInput(String username, String password, String email) {
+    ConnectToDatabase cnt;
 
+    public UserController() {
+        cnt = new ConnectToDatabase();
+    }
+
+    public boolean checkInput(String username, String password, String email) {
         if (username.equals("") || password.equals("") || email.equals("")) {
             return false;
         }
-
         return true;
     }
-    
-    public void addUserIntoDatabase(){
-        
+
+    public boolean checkUserIsExist(String name, String pass) {
+
+        Connection c = cnt.getConnection();
+        PreparedStatement ps;
+        try {
+            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            ps = c.prepareStatement(query);
+            ps.setString(1, name);
+            ps.setString(2, pass);
+            ps.execute();
+            ResultSet res = ps.executeQuery();
+            if (res.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+        }
+        return false;
+
     }
 
-    public ArrayList<User> getListUsers(String username, String password, String email) {
+    public void addUserIntoDatabase(String name, String pass, String email) {
 
-        ArrayList<User> lisetUsers = new ArrayList<>();
+        if (!checkInput(name, pass, email)) {
+            JOptionPane.showMessageDialog(null, "One or more fields are empty!");
+        } else if (checkUserIsExist(name, pass)) {
+            JOptionPane.showMessageDialog(null, "Account already exist!");
+        } else {
+            Connection c = cnt.getConnection();
+            PreparedStatement ps;
+            try {
+                String query = "INSERT INTO users VALUES(?, ?, ?)";
+                ps = c.prepareStatement(query);
+                ps.setString(1, name);
+                ps.setString(2, pass);
+                ps.setString(3, email);
+                ps.execute();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
 
-        ConnectToDatabase cnt = new ConnectToDatabase();
+    }
+
+    public ArrayList<User> getListUsers() {
+        ArrayList<User> listUsers = new ArrayList<>();
 
         try {
             Connection c = cnt.getConnection();
@@ -40,15 +83,13 @@ public class UserController {
             ResultSet res = statement.executeQuery(query);
 
             while (res.next()) {
-                int id = res.getInt("id");
                 String user = res.getString("username");
                 String pass = res.getString("password");
                 String mail = res.getString("email");
-                User u = new User(id, user, pass, mail);
-                lisetUsers.add(u);
+                User u = new User(user, pass, mail);
+                listUsers.add(u);
             }
-            return lisetUsers;
-
+            return listUsers;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }

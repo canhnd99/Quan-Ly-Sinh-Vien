@@ -1,7 +1,11 @@
 package frames;
 
+import controllers.UserController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 
 public class SignIn extends javax.swing.JFrame {
 
@@ -20,6 +24,28 @@ public class SignIn extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e){
                 setState(ICONIFIED);
+            }
+        });
+        
+        lb_here.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent eu){
+                SignUp su = new SignUp();
+                su.setVisible(true);
+            }
+        });
+        
+        btn_login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String user = txt_username.getText();
+                String pass = String.valueOf(txt_password.getPassword());
+                UserController uc = new UserController();
+                if(uc.checkUserIsExist(user, pass) == true){
+                    JOptionPane.showMessageDialog(null, "OKKK");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Invalied username or password.");
+                }
             }
         });
         
