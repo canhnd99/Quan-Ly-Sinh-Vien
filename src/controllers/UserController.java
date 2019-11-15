@@ -89,6 +89,7 @@ public class UserController {
                 String mail = res.getString("email");
                 User u = new User(user, pass, mail);
                 listUsers.add(u);
+                System.out.println("Heello Huy");
             }
             return listUsers;
         } catch (SQLException ex) {
