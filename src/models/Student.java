@@ -4,71 +4,70 @@ import java.sql.Date;
 
 public class Student {
 
-    private String id;
-    private String name;
-    private String gender;
-    private Date birthDate;
-    private String phoneNum;
-    private String address;
+    private String studentId;
+    private String studentName;
+    private String studentGender;
+    private Date studentBirthDate;
+    private String studentPhone;
+    private String studentAddress;
 
     public Student() {
     }
 
-    public Student(String id, String name, String gender, Date birthDate, String phoneNum, String address) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.birthDate = birthDate;
-        this.phoneNum = phoneNum;
-        this.address = address;
+    public Student(String studentId, String studentName, String studentGender, Date studentBirthDate, String studentPhone, String studentAddress) {
+        this.studentId = studentId;
+        this.studentName = studentName;
+        this.studentGender = studentGender;
+        this.studentBirthDate = studentBirthDate;
+        this.studentPhone = studentPhone;
+        this.studentAddress = studentAddress;
     }
 
-    public String getId() {
-        return id;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getStudentGender() {
+        return studentGender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setStudentGender(String studentGender) {
+        this.studentGender = studentGender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getStudentBirthDate() {
+        return studentBirthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setStudentBirthDate(Date studentBirthDate) {
+        this.studentBirthDate = studentBirthDate;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public String getStudentPhone() {
+        return studentPhone;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setStudentPhone(String studentPhone) {
+        this.studentPhone = studentPhone;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStudentAddress() {
+        return studentAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStudentAddress(String studentAddress) {
+        this.studentAddress = studentAddress;
     }
-
 }
