@@ -35,6 +35,10 @@ public class UserController {
             ps.setString(1, name);
             ps.setString(2, pass);
             ps.execute();
+            
+            System.out.println("Hello ae");
+            
+            
             ResultSet res = ps.executeQuery();
             if (res.next()) {
                 return true;
