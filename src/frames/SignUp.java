@@ -6,6 +6,7 @@ import static java.awt.Frame.ICONIFIED;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 
 public class SignUp extends javax.swing.JFrame {
     
@@ -66,6 +67,7 @@ public class SignUp extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(153, 102, 255));
+        jPanel2.setRequestFocusEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
