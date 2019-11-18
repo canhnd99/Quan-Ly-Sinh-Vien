@@ -98,7 +98,6 @@ public class ScoreManager extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
 
-        cbox_sort.setBackground(new java.awt.Color(255, 255, 255));
         cbox_sort.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         cbox_sort.setForeground(new java.awt.Color(204, 204, 204));
         cbox_sort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by Student ID", "Sort by Course ID", "Sort by Score" }));
@@ -130,14 +129,12 @@ public class ScoreManager extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(153, 204, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
 
-        txt_search_student_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_search_student_id.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         txt_search_student_id.setForeground(new java.awt.Color(204, 204, 204));
         txt_search_student_id.setText("Search by student ID");
 
         btn_search_student_id.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search-35.png"))); // NOI18N
 
-        txt_search_course_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_search_course_id.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         txt_search_course_id.setForeground(new java.awt.Color(204, 204, 204));
         txt_search_course_id.setText("Search by course ID");
@@ -300,17 +297,14 @@ public class ScoreManager extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Filter");
 
-        txt_filter_score.setBackground(new java.awt.Color(255, 255, 255));
         txt_filter_score.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_filter_score.setForeground(new java.awt.Color(204, 204, 204));
         txt_filter_score.setText("Filter by Score");
 
-        txt_filer_student_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_filer_student_id.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_filer_student_id.setForeground(new java.awt.Color(204, 204, 204));
         txt_filer_student_id.setText("Filter by Student ID");
 
-        txt_filter_course.setBackground(new java.awt.Color(255, 255, 255));
         txt_filter_course.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_filter_course.setForeground(new java.awt.Color(204, 204, 204));
         txt_filter_course.setText("Filter by Course ID");
