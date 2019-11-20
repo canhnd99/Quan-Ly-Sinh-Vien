@@ -30,7 +30,7 @@ public class UserController {
         Connection c = cnt.getConnection();
         PreparedStatement ps;
         try {
-            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
             ps = c.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, pass);
@@ -61,7 +61,7 @@ public class UserController {
             Connection c = cnt.getConnection();
             PreparedStatement ps;
             try {
-                String query = "INSERT INTO users VALUES(?, ?, ?)";
+                String query = "INSERT INTO user VALUES(?, ?, ?)";
                 ps = c.prepareStatement(query);
                 ps.setString(1, name);
                 ps.setString(2, pass);
@@ -83,7 +83,7 @@ public class UserController {
 
             Statement statement = c.createStatement();
 
-            String query = "SELECT * FROM users";
+            String query = "SELECT * FROM user";
 
             ResultSet res = statement.executeQuery(query);
 

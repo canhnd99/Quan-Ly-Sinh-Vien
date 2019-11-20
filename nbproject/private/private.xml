@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/NguyetMoon/Documents/Baitap/Quan-Ly-Sinh-Vien/src/frames/AddScores.java</file>
-            <file>file:/C:/Users/NguyetMoon/Documents/Baitap/Quan-Ly-Sinh-Vien/src/frames/MainWindow.java</file>
+            <file>file:/C:/Users/ducca/Desktop/Quan-Ly-Sinh-Vien/src/models/DiemSo.java</file>
+            <file>file:/C:/Users/ducca/Desktop/Quan-Ly-Sinh-Vien/src/models/Score.java</file>
+            <file>file:/C:/Users/ducca/Desktop/Quan-Ly-Sinh-Vien/src/frames/SortByScore.java</file>
+            <file>file:/C:/Users/ducca/Desktop/Quan-Ly-Sinh-Vien/src/frames/SortScoreByStudentId.java</file>
+            <file>file:/C:/Users/ducca/Desktop/Quan-Ly-Sinh-Vien/src/controllers/ScoreController.java</file>
+            <file>file:/C:/Users/ducca/Desktop/Quan-Ly-Sinh-Vien/src/frames/ScoreManager.java</file>
         </group>
     </open-files>
 </project-private>
