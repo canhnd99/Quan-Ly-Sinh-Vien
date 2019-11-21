@@ -57,18 +57,30 @@ public class Score {
         this.status = status;
     }
 
-    public ArrayList<Score> getListScores(int option, String id) {
+    public ArrayList<Score> getListScores(int option, double score, String id) {
         ArrayList<Score> listScores = new ArrayList<>();
         ConnectToDatabase cnt = new ConnectToDatabase();
         Connection c = cnt.getConnection();
         try {
             String query = "";
-            if (option == 1) {
-                query = "SELECT * FROM score WHERE student_id = '" + id + "'";
-            } else if (option == 2) {
-                query = "SELECT * FROM score WHERE course_id = '" + id + "'";
-            } else if (option == 0) {
-                query = "SELECT * FROM score";
+            switch (option) {
+                case 0:
+                    query = "SELECT * FROM score";
+                    break;
+                case 1:
+                    query = "SELECT * FROM score WHERE student_id = '" + id + "'";
+                    break;
+                case 2:
+                    query = "SELECT * FROM score WHERE course_id = '" + id + "'";
+                    break;
+                case 3:
+                    query = "SELECT * FROM score WHERE score > '" + score + "'";
+                    break;
+                case 4:
+                    query = "SELECT * FROM score WHERE score < '" + score + "'";
+                    break;
+                default:
+                    break;
             }
             Statement stm = c.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -86,7 +98,20 @@ public class Score {
         return listScores;
     }
 
-    /**/
+    public void addNewScoreIntoDatabase(String studentId, String courseId,
+            double score, String status) {
+        ConnectToDatabase cnt = new ConnectToDatabase();
+        Connection c = cnt.getConnection();
+        try {
+            String query = "INSERT INTO score VALUES ('" + studentId + "', '" + courseId + "', '" + score + "', '" + status + "')";
+            Statement stm = c.createStatement();
+            stm.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "ADD NEW SCORE.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     public void deleteScoreInDatabase(String studentId) {
         ConnectToDatabase cnt = new ConnectToDatabase();
         Connection c = cnt.getConnection();
@@ -103,7 +128,6 @@ public class Score {
         }
     }
 
-    /**/
     public void updateScoreInDatabase(String studentId, String courseId,
             double score, String status) {
         ConnectToDatabase cnt = new ConnectToDatabase();
@@ -123,18 +147,4 @@ public class Score {
         }
     }
 
-    /* */
-    public void addNewScoreIntoDatabase(String studentId, String courseId,
-            double score, String status) {
-        ConnectToDatabase cnt = new ConnectToDatabase();
-        Connection c = cnt.getConnection();
-        try {
-            String query = "INSERT INTO score VALUES ('" + studentId + "', '" + courseId + "', '" + score + "', '" + status + "')";
-            Statement stm = c.createStatement();
-            stm.executeUpdate(query);
-            JOptionPane.showMessageDialog(null, "ADD NEW SCORE.");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
 }

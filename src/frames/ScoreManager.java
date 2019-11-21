@@ -3,6 +3,7 @@ package frames;
 import controllers.ScoreController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -21,12 +22,15 @@ public class ScoreManager extends javax.swing.JFrame {
     public ScoreManager() {
 
         sc = new ScoreController();
+        score = new Score();
 
         initComponents();
         setLocationRelativeTo(null);
 
+        //hiển thị dữ liệu lên bảng khi khởi tạo frame.
         loadDataToTable();
 
+        //đóng frame.
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -34,6 +38,7 @@ public class ScoreManager extends javax.swing.JFrame {
             }
         });
 
+        //thu nhỏ frame.
         lb_mini.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -41,32 +46,53 @@ public class ScoreManager extends javax.swing.JFrame {
             }
         });
 
+        //khởi tạo ban đầu radio button bigger được tích.
+        radio_bigger.setSelected(true);
+
+        //nếu tích vào radio button smaller thì bỏ tích ở bigger.
+        radio_smaller.addActionListener((ActionEvent e) -> {
+            if (radio_smaller.isSelected()) {
+                radio_bigger.setSelected(false);
+            }
+        });
+
+        //nếu tích vào radio bigger thì bỏ tích ở smaller.
+        radio_bigger.addActionListener((ActionEvent e) -> {
+            if (radio_bigger.isSelected()) {
+                radio_smaller.setSelected(false);
+            }
+        });
+
+        //load lại bảng khi nhấn nút reload.
         btn_reload.addActionListener((ActionEvent e) -> {
             loadDataToTable();
         });
 
+        //tìm kiếm theo Student ID.
         btn_search_student_id.addActionListener((ActionEvent e) -> {
             String studentId = txt_search_student_id.getText().toUpperCase();
             if (studentId.equals("")) {
                 JOptionPane.showMessageDialog(null, "search value is empty!");
             } else {
-                ArrayList<Score> list = score.getListScores(1, studentId);
+                ArrayList<Score> list = score.getListScores(1, 0.0, studentId);
                 displaySearchValues(list);
             }
         });
 
+        //tìm kiếm theo Course ID.
         btn_search_course_id.addActionListener((ActionEvent e) -> {
             String courseId = txt_search_course_id.getText().toUpperCase();
             if (courseId.equals("")) {
                 JOptionPane.showMessageDialog(null, "search value is empty!");
             } else {
-                ArrayList<Score> list = score.getListScores(2, courseId);
+                ArrayList<Score> list = score.getListScores(2, 0.0, courseId);
                 displaySearchValues(list);
             }
         });
 
+        //Sắp xếp
         cbox_sort.addActionListener((ActionEvent e) -> {
-            ArrayList<Score> list = score.getListScores(0, "");
+            ArrayList<Score> list = score.getListScores(0, 0.0, "");
             if ("Sort by Student ID".equals(cbox_sort.getItemAt(cbox_sort.getSelectedIndex()))) {
                 list.sort(new SortScoreByStudentId());
                 displaySearchValues(list);
@@ -81,9 +107,21 @@ public class ScoreManager extends javax.swing.JFrame {
             }
         });
 
-        /**/
+        //Lọc theo điểm.
+        btn_filter.addActionListener((ActionEvent e) -> {
+            double diem = Double.parseDouble(txt_filter_score.getText());
+            if (radio_bigger.isSelected()) {
+                ArrayList<Score> list = score.getListScores(3, diem, "");
+                displaySearchValues(list);
+            } else {
+                ArrayList<Score> list = score.getListScores(4, diem, "");
+                displaySearchValues(list);
+            }
+        });
+
+        /*Xóa điểm trong DB*/
         btn_delete.addActionListener((ActionEvent e) -> {
-            ArrayList<Score> list = score.getListScores(0, "");
+            ArrayList<Score> list = score.getListScores(0, 0.0, "");
             int clickedRow = table.getSelectedRow();
             if (clickedRow == -1) {
                 JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO DELETE!");
@@ -93,12 +131,11 @@ public class ScoreManager extends javax.swing.JFrame {
             }
         });
 
-        /**/
+        /*Cập nhật điểm trong DB*/
         btn_update.addActionListener((ActionEvent e) -> {
-            ArrayList<Score> list = score.getListScores(0, "");
+            ArrayList<Score> list = score.getListScores(0, 0.0, "");
             int clickedRow = table.getSelectedRow();
             int clickedCol = table.getSelectedColumn();
-
             if (clickedRow == -1) {
                 JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO UPDATE!");
             } else {
@@ -117,7 +154,7 @@ public class ScoreManager extends javax.swing.JFrame {
     }
 
     public void loadDataToTable() {
-        ArrayList<Score> list = score.getListScores(0, "");
+        ArrayList<Score> list = score.getListScores(0, 0.0, "");
         displaySearchValues(list);
     }
 
@@ -159,16 +196,18 @@ public class ScoreManager extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txt_filter_score = new javax.swing.JTextField();
         btn_filter = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radio_bigger = new javax.swing.JRadioButton();
+        radio_smaller = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
-        btn_delete = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
         btn_update = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         btn_view = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        btn_delete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jPanel8 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -333,7 +372,7 @@ public class ScoreManager extends javax.swing.JFrame {
 
         txt_filter_score.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         txt_filter_score.setForeground(new java.awt.Color(204, 204, 204));
-        txt_filter_score.setText("Enter score ....");
+        txt_filter_score.setText("Enter score");
         txt_filter_score.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_filter_scoreFocusGained(evt);
@@ -346,11 +385,11 @@ public class ScoreManager extends javax.swing.JFrame {
         btn_filter.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btn_filter.setText("FILTER");
 
-        jRadioButton1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jRadioButton1.setText("Bigger");
+        radio_bigger.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        radio_bigger.setText("Bigger");
 
-        jRadioButton2.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jRadioButton2.setText("Smaller");
+        radio_smaller.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        radio_smaller.setText("Smaller");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -361,9 +400,9 @@ public class ScoreManager extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(radio_bigger, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(radio_smaller, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txt_filter_score, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -376,8 +415,8 @@ public class ScoreManager extends javax.swing.JFrame {
                 .addComponent(txt_filter_score, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(radio_bigger)
+                    .addComponent(radio_smaller))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -386,64 +425,62 @@ public class ScoreManager extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(153, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
 
-        btn_delete.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        btn_delete.setForeground(new java.awt.Color(153, 0, 0));
-        btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete-45.png"))); // NOI18N
-        btn_delete.setText("DELETE");
+        btn_update.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_update.setForeground(new java.awt.Color(0, 102, 51));
+        btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/renew-45.png"))); // NOI18N
+        btn_update.setText("UPDATE");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(btn_update, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel6.setBackground(new java.awt.Color(153, 204, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
         jPanel6.setPreferredSize(new java.awt.Dimension(186, 67));
 
-        btn_update.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        btn_update.setForeground(new java.awt.Color(0, 102, 51));
-        btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/renew-45.png"))); // NOI18N
-        btn_update.setText("UPDATE");
+        btn_view.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_view.setForeground(new java.awt.Color(204, 204, 0));
+        btn_view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student-45.png"))); // NOI18N
+        btn_view.setText("STUDENT");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btn_view, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_update, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+            .addComponent(btn_view, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel7.setBackground(new java.awt.Color(153, 204, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
         jPanel7.setPreferredSize(new java.awt.Dimension(186, 67));
 
-        btn_view.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        btn_view.setForeground(new java.awt.Color(204, 204, 0));
-        btn_view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student-45.png"))); // NOI18N
-        btn_view.setText("VIEW");
+        btn_delete.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_delete.setForeground(new java.awt.Color(153, 0, 0));
+        btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete-45.png"))); // NOI18N
+        btn_delete.setText("DELETE");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_view, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_view, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(btn_delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -572,13 +609,34 @@ public class ScoreManager extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(table);
 
+        jPanel8.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
+
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(153, 0, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/course-45.png"))); // NOI18N
+        jButton1.setText("COURSE");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lb_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 157, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -592,13 +650,16 @@ public class ScoreManager extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(93, 93, 93)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
@@ -616,12 +677,13 @@ public class ScoreManager extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(20, 20, 20))
         );
 
@@ -629,7 +691,7 @@ public class ScoreManager extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1132, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1289, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -685,7 +747,7 @@ public class ScoreManager extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_headerMousePressed
 
     private void txt_filter_scoreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_filter_scoreFocusGained
-        if (txt_filter_score.getText().equals("Search by student ID")) {
+        if (txt_filter_score.getText().equals("Enter score")) {
             txt_filter_score.setText("");
             txt_filter_score.setForeground(Color.BLACK);
         }
@@ -693,7 +755,7 @@ public class ScoreManager extends javax.swing.JFrame {
 
     private void txt_filter_scoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_filter_scoreFocusLost
         if (txt_filter_score.getText().isEmpty()) {
-            txt_filter_score.setText("Search by course ID");
+            txt_filter_score.setText("Enter score");
             txt_filter_score.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txt_filter_scoreFocusLost
@@ -740,6 +802,7 @@ public class ScoreManager extends javax.swing.JFrame {
     private javax.swing.JButton btn_update;
     private javax.swing.JButton btn_view;
     private javax.swing.JComboBox<String> cbox_sort;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -751,12 +814,13 @@ public class ScoreManager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_exit;
     private javax.swing.JPanel lb_header;
     private javax.swing.JLabel lb_mini;
+    private javax.swing.JRadioButton radio_bigger;
+    private javax.swing.JRadioButton radio_smaller;
     private javax.swing.JTable table;
     private javax.swing.JTextField txt_filter_score;
     private javax.swing.JTextField txt_search_course_id;

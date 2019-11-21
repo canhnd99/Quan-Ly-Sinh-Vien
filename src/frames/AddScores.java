@@ -7,41 +7,39 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AddScores extends javax.swing.JFrame {
-    
+
     int mousePressX;
     int mousePressY;
-    
+
     ScoreController sc;
-    
+
     public AddScores() {
-        
+
         initComponents();
         setLocationRelativeTo(null);
-        
+
         sc = new ScoreController();
-        
+
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 setVisible(false);
             }
         });
-        
+
         lb_mini.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 setState(ICONIFIED);
             }
         });
-        
-        btn_add_score.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sc.addNewScoreIntoDatabase(txt_student_id, txt_course_id, txt_score, txt_status);
-            }
+
+        btn_add_score.addActionListener((ActionEvent e) -> {
+            sc.addNewScoreIntoDatabase(txt_student_id,
+                    txt_course_id, txt_score, txt_status);
         });
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -208,7 +206,7 @@ public class AddScores extends javax.swing.JFrame {
     private void lb_headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_headerMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         setLocation(x - mousePressX, y - mousePressY);
     }//GEN-LAST:event_lb_headerMouseDragged
 
@@ -216,7 +214,7 @@ public class AddScores extends javax.swing.JFrame {
         mousePressX = evt.getX();
         mousePressY = evt.getY();
     }//GEN-LAST:event_lb_headerMousePressed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
