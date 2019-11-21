@@ -1,12 +1,12 @@
 package frames;
 
 import java.util.Comparator;
-import models.DiemSo;
+import models.Score;
 
-public class SortScoreByCourseId implements Comparator<DiemSo> {
+public class SortScoreByCourseId implements Comparator<Score> {
 
     @Override
-    public int compare(DiemSo ds1, DiemSo ds2) {
+    public int compare(Score ds1, Score ds2) {
         return ds1.getCourseId().compareTo(ds2.getCourseId());
     }
 }

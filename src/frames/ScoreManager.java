@@ -3,17 +3,17 @@ package frames;
 import controllers.ScoreController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.DiemSo;
+import models.Score;
 
 public class ScoreManager extends javax.swing.JFrame {
 
     ScoreController sc;
+    Score score;
 
     int pressedX;
     int pressedY;
@@ -50,8 +50,7 @@ public class ScoreManager extends javax.swing.JFrame {
             if (studentId.equals("")) {
                 JOptionPane.showMessageDialog(null, "search value is empty!");
             } else {
-                String query = "SELECT * FROM score WHERE student_id = '" + studentId + "'";
-                ArrayList<DiemSo> list = sc.getListScores(query);
+                ArrayList<Score> list = score.getListScores(1, studentId);
                 displaySearchValues(list);
             }
         });
@@ -61,15 +60,13 @@ public class ScoreManager extends javax.swing.JFrame {
             if (courseId.equals("")) {
                 JOptionPane.showMessageDialog(null, "search value is empty!");
             } else {
-                String query = "SELECT * FROM score WHERE course_id = '" + courseId + "'";
-                ArrayList<DiemSo> list = sc.getListScores(query);
+                ArrayList<Score> list = score.getListScores(2, courseId);
                 displaySearchValues(list);
             }
         });
 
         cbox_sort.addActionListener((ActionEvent e) -> {
-            String query = "SELECT * FROM score";
-            ArrayList<DiemSo> list = sc.getListScores(query);
+            ArrayList<Score> list = score.getListScores(0, "");
             if ("Sort by Student ID".equals(cbox_sort.getItemAt(cbox_sort.getSelectedIndex()))) {
                 list.sort(new SortScoreByStudentId());
                 displaySearchValues(list);
@@ -86,48 +83,45 @@ public class ScoreManager extends javax.swing.JFrame {
 
         /**/
         btn_delete.addActionListener((ActionEvent e) -> {
-            String query = "SELECT * FROM score";
-            ArrayList<DiemSo> list = sc.getListScores(query);
+            ArrayList<Score> list = score.getListScores(0, "");
             int clickedRow = table.getSelectedRow();
             if (clickedRow == -1) {
                 JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO DELETE!");
             } else {
                 String studentId = list.get(clickedRow).getStudentId();
-                sc.deleteScoreInDatabase(studentId);
+                score.deleteScoreInDatabase(studentId);
             }
         });
-        
+
         /**/
         btn_update.addActionListener((ActionEvent e) -> {
-            String query = "SELECT * FROM score";
-            ArrayList<DiemSo> list = sc.getListScores(query);
+            ArrayList<Score> list = score.getListScores(0, "");
             int clickedRow = table.getSelectedRow();
             int clickedCol = table.getSelectedColumn();
-            
+
             if (clickedRow == -1) {
                 JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO UPDATE!");
             } else {
-                String studentId = list.get(clickedRow).getStudentId();
-                String courseId = list.get(clickedRow).getCourseId();
-                double score = list.get(clickedRow).getScore();
-                String status = list.get(clickedRow).getStatus();
-                sc.updateScoreInDatabase(studentId, courseId, score, status);
+                String msv = list.get(clickedRow).getStudentId();
+                String mkh = list.get(clickedRow).getCourseId();
+                double ds = list.get(clickedRow).getScore();
+                String tt = list.get(clickedRow).getStatus();
+                score.updateScoreInDatabase(msv, mkh, ds, tt);
             }
         });
-        
+
         btn_view.addActionListener((ActionEvent e) -> {
-            
+
         });
 
     }
 
     public void loadDataToTable() {
-        String query = "SELECT * FROM score";
-        ArrayList<DiemSo> list = sc.getListScores(query);
+        ArrayList<Score> list = score.getListScores(0, "");
         displaySearchValues(list);
     }
 
-    public void displaySearchValues(ArrayList<DiemSo> list) {
+    public void displaySearchValues(ArrayList<Score> list) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         String[] cols = {"Student ID", "Course ID", "Score", "Status"};
         String[][] rows = new String[100][4];
