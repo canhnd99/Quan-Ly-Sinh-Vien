@@ -11,17 +11,17 @@ public class AddScores extends javax.swing.JFrame {
     public AddScores() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent evt){
+            public void mouseClicked(MouseEvent evt) {
                 setVisible(false);
             }
         });
-        
+
         lb_mini.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent evt){
+            public void mouseClicked(MouseEvent evt) {
                 setState(ICONIFIED);
             }
         });
@@ -193,7 +193,7 @@ public class AddScores extends javax.swing.JFrame {
     private void lb_headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_headerMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         setLocation(x - mousePressX, y - mousePressY);
     }//GEN-LAST:event_lb_headerMouseDragged
 
@@ -228,10 +228,8 @@ public class AddScores extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddScores().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AddScores().setVisible(true);
         });
     }
 

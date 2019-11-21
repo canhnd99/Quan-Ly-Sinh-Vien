@@ -1,105 +1,41 @@
 package controllers;
 
-import connections.ConnectToDatabase;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import models.User;
 
 public class UserController {
 
-    ConnectToDatabase cnt;
-
-    public UserController() {
-        cnt = new ConnectToDatabase();
-    }
-
-    public boolean checkInput(String username, String password, String email) {
+    
+    public boolean checkUserIsExist(JTextField txtUsername,
+            JPasswordField txtPassword, JTextField txtEmail) {
+        User user = new User();
+        String username = txtUsername.getText();
+        String password = String.valueOf(txtPassword.getPassword());
+        String email = txtEmail.getText();
         if (username.equals("") || password.equals("") || email.equals("")) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkUserIsExist(String name, String pass) {
-
-        Connection c = cnt.getConnection();
-        PreparedStatement ps;
-        try {
-            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
-            ps = c.prepareStatement(query);
-            ps.setString(1, name);
-            ps.setString(2, pass);
-            ps.execute();
-            
-            System.out.println("Hello ae");
-            
-            
-            ResultSet res = ps.executeQuery();
-            if (res.next()) {
+            JOptionPane.showMessageDialog(null, "One or more fields are empty.");
+        } else {
+            if (user.checkUserIsExist(username, password, email)) {
                 return true;
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            System.out.println(ex);
         }
         return false;
-
     }
 
-    public void addUserIntoDatabase(String name, String pass, String email) {
-
-        if (!checkInput(name, pass, email)) {
-            JOptionPane.showMessageDialog(null, "One or more fields are empty!");
-        } else if (checkUserIsExist(name, pass)) {
-            JOptionPane.showMessageDialog(null, "Account already exist!");
+    
+    public void addUserIntoDatabase(JTextField txtUsername,
+            JPasswordField txtPassword, JTextField txtEmail) {
+        User user = new User();
+        String username = txtUsername.getText();
+        String password = String.valueOf(txtPassword.getPassword());
+        String email = txtEmail.getText();
+        if (username.equals("") || password.equals("") || email.equals("")) {
+            JOptionPane.showMessageDialog(null, "One or more fields are empty.");
         } else {
-            Connection c = cnt.getConnection();
-            PreparedStatement ps;
-            try {
-                String query = "INSERT INTO user VALUES(?, ?, ?)";
-                ps = c.prepareStatement(query);
-                ps.setString(1, name);
-                ps.setString(2, pass);
-                ps.setString(3, email);
-                ps.execute();
-                JOptionPane.showMessageDialog(null, "ADDED");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-            }
+            user.addUserIntoDatabase(username, password, email);
         }
-
-    }
-
-    public ArrayList<User> getListUsers() {
-        ArrayList<User> listUsers = new ArrayList<>();
-
-        try {
-            Connection c = cnt.getConnection();
-
-            Statement statement = c.createStatement();
-
-            String query = "SELECT * FROM user";
-
-            ResultSet res = statement.executeQuery(query);
-
-            while (res.next()) {
-                String user = res.getString("username");
-                String pass = res.getString("password");
-                String mail = res.getString("email");
-                User u = new User(user, pass, mail);
-                listUsers.add(u);
-                System.out.println("Heello Huy");
-            }
-            return listUsers;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-        return null;
     }
 
 }

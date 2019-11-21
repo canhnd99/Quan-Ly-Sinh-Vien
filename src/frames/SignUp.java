@@ -3,41 +3,37 @@ package frames;
 import controllers.UserController;
 import static java.awt.Frame.ICONIFIED;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class SignUp extends javax.swing.JFrame {
-
+    
     UserController uc;
-
+    
     public SignUp() {
-
+        
         initComponents();
         setLocationRelativeTo(null);
-
+        
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
             }
         });
-
+        
         lb_mini.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 setState(ICONIFIED);
             }
         });
-
+        
         btn_register.addActionListener((ActionEvent e) -> {
-            String username = txt_username.getText();
-            String password = String.valueOf(txt_password.getPassword());
-            String email = txt_email.getText();
-            uc.addUserIntoDatabase(username, password, email);
+            uc.addUserIntoDatabase(txt_username, txt_password, txt_email);
         });
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
