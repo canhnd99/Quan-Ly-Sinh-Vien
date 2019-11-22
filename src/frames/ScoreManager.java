@@ -3,7 +3,6 @@ package frames;
 import controllers.ScoreController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -12,18 +11,18 @@ import javax.swing.table.DefaultTableModel;
 import models.Score;
 
 public class ScoreManager extends javax.swing.JFrame {
-
+    
     ScoreController sc;
     Score score;
-
+    
     int pressedX;
     int pressedY;
-
+    
     public ScoreManager() {
-
+        
         sc = new ScoreController();
         score = new Score();
-
+        
         initComponents();
         setLocationRelativeTo(null);
 
@@ -143,21 +142,23 @@ public class ScoreManager extends javax.swing.JFrame {
                 String mkh = list.get(clickedRow).getCourseId();
                 double ds = list.get(clickedRow).getScore();
                 String tt = list.get(clickedRow).getStatus();
-                score.updateScoreInDatabase(msv, mkh, ds, tt);
+                UpdateScore us = new UpdateScore();
+                us.loadRowValues(msv, mkh, ds, tt);
+                us.setVisible(true);
             }
         });
-
+        
         btn_view.addActionListener((ActionEvent e) -> {
-
+            
         });
-
+        
     }
-
+    
     public void loadDataToTable() {
         ArrayList<Score> list = score.getListScores(0, 0.0, "");
         displaySearchValues(list);
     }
-
+    
     public void displaySearchValues(ArrayList<Score> list) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         String[] cols = {"Student ID", "Course ID", "Score", "Status"};
@@ -172,7 +173,7 @@ public class ScoreManager extends javax.swing.JFrame {
             i++;
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -243,7 +244,7 @@ public class ScoreManager extends javax.swing.JFrame {
         lb_headerLayout.setHorizontalGroup(
             lb_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lb_headerLayout.createSequentialGroup()
-                .addContainerGap(325, Short.MAX_VALUE)
+                .addContainerGap(323, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(194, 194, 194)
                 .addComponent(lb_mini)
@@ -681,8 +682,8 @@ public class ScoreManager extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(20, 20, 20))
         );
@@ -759,7 +760,7 @@ public class ScoreManager extends javax.swing.JFrame {
             txt_filter_score.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txt_filter_scoreFocusLost
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

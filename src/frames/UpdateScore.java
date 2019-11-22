@@ -1,10 +1,31 @@
 package frames;
 
+import controllers.ScoreController;
+import java.awt.event.ActionEvent;
+import models.Score;
+
 public class UpdateScore extends javax.swing.JFrame {
+
+    Score score;
+    ScoreController sc;
 
     public UpdateScore() {
         initComponents();
         setLocationRelativeTo(null);
+        score = new Score();
+        sc = new ScoreController();
+        btn_save.addActionListener((ActionEvent e) -> {
+            sc.updateScoreInDatabase(txt_student_id, txt_course_id,
+                    txt_score, txt_status);
+        });
+    }
+
+    public void loadRowValues(String studentId, String courseId,
+            double score, String status) {
+        txt_student_id.setText(studentId);
+        txt_course_id.setText(courseId);
+        txt_score.setText(score + "");
+        txt_status.setText(status);
     }
 
     @SuppressWarnings("unchecked")
@@ -16,11 +37,11 @@ public class UpdateScore extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txt_course_id = new javax.swing.JTextField();
+        txt_student_id = new javax.swing.JTextField();
+        txt_score = new javax.swing.JTextField();
+        txt_status = new javax.swing.JTextField();
+        btn_save = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -60,19 +81,24 @@ public class UpdateScore extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        txt_course_id.setBackground(new java.awt.Color(255, 255, 255));
+        txt_course_id.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txt_course_id.setForeground(new java.awt.Color(51, 51, 51));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txt_student_id.setBackground(new java.awt.Color(255, 255, 255));
+        txt_student_id.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txt_student_id.setForeground(new java.awt.Color(51, 51, 51));
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txt_score.setBackground(new java.awt.Color(255, 255, 255));
+        txt_score.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txt_score.setForeground(new java.awt.Color(51, 51, 51));
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txt_status.setBackground(new java.awt.Color(255, 255, 255));
+        txt_status.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txt_status.setForeground(new java.awt.Color(51, 51, 51));
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        jButton1.setText("SAVE");
+        btn_save.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        btn_save.setText("SAVE");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,11 +108,11 @@ public class UpdateScore extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                    .addComponent(txt_student_id)
+                    .addComponent(txt_course_id)
+                    .addComponent(txt_score)
+                    .addComponent(txt_status)
+                    .addComponent(btn_save, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,15 +120,15 @@ public class UpdateScore extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_student_id, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_course_id, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_score, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_status, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_save, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 13, Short.MAX_VALUE))
         );
 
@@ -151,15 +177,15 @@ public class UpdateScore extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_save;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField txt_course_id;
+    private javax.swing.JTextField txt_score;
+    private javax.swing.JTextField txt_status;
+    private javax.swing.JTextField txt_student_id;
     // End of variables declaration//GEN-END:variables
 }
