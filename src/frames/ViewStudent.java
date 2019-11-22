@@ -33,6 +33,7 @@ public class ViewStudent extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 setState(ICONIFIED);
+                //
             }
         });
     }
