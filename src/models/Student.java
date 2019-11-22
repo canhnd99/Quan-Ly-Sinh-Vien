@@ -7,14 +7,14 @@ public class Student {
     private String studentId;
     private String studentName;
     private String studentGender;
-    private Date studentBirthDate;
+    private String studentBirthDate;
     private String studentPhone;
     private String studentAddress;
 
     public Student() {
     }
 
-    public Student(String studentId, String studentName, String studentGender, Date studentBirthDate, String studentPhone, String studentAddress) {
+    public Student(String studentId, String studentName, String studentGender, String studentBirthDate, String studentPhone, String studentAddress) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.studentGender = studentGender;
@@ -47,11 +47,11 @@ public class Student {
         this.studentGender = studentGender;
     }
 
-    public Date getStudentBirthDate() {
+    public String getStudentBirthDate() {
         return studentBirthDate;
     }
 
-    public void setStudentBirthDate(Date studentBirthDate) {
+    public void setStudentBirthDate(String studentBirthDate) {
         this.studentBirthDate = studentBirthDate;
     }
 
@@ -69,5 +69,8 @@ public class Student {
 
     public void setStudentAddress(String studentAddress) {
         this.studentAddress = studentAddress;
+    }
+    public Object[] toObjects(){
+        return new Object[]{studentId, studentName, studentGender, studentBirthDate, studentPhone,  studentAddress};
     }
 }
