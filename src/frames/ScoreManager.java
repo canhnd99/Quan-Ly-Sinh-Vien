@@ -160,7 +160,6 @@ public class ScoreManager extends javax.swing.JFrame {
                 UpdateScore us = new UpdateScore();
                 us.loadRowValues(msv, mkh, ds, tt);
                 us.setVisible(true);
-                System.out.println("Hello");
             }
         });
         
