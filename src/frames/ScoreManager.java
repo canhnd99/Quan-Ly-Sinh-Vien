@@ -134,7 +134,6 @@ public class ScoreManager extends javax.swing.JFrame {
         btn_update.addActionListener((ActionEvent e) -> {
             ArrayList<Score> list = score.getListScores(0, 0.0, "");
             int clickedRow = table.getSelectedRow();
-            int clickedCol = table.getSelectedColumn();
             if (clickedRow == -1) {
                 JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO UPDATE!");
             } else {
@@ -149,7 +148,19 @@ public class ScoreManager extends javax.swing.JFrame {
         });
         
         btn_view_student.addActionListener((ActionEvent e) -> {
-            
+            ArrayList<Score> list = score.getListScores(0, 0.0, "");
+            int clickedRow = table.getSelectedRow();
+            if (clickedRow == -1) {
+                JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO VIEW!");
+            } else {
+                String msv = list.get(clickedRow).getStudentId();
+                String mkh = list.get(clickedRow).getCourseId();
+                double ds = list.get(clickedRow).getScore();
+                String tt = list.get(clickedRow).getStatus();
+                UpdateScore us = new UpdateScore();
+                us.loadRowValues(msv, mkh, ds, tt);
+                us.setVisible(true);
+            }
         });
         
     }
