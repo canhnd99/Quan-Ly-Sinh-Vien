@@ -20,18 +20,20 @@ public class ScoreController {
         } else {
             Score s = new Score();
             double diemso = Double.parseDouble(score);
-            s.addNewScoreIntoDatabase(studentId, courseId, diemso, status);
+            if (diemso < 0 || diemso > 10) {
+                JOptionPane.showMessageDialog(null, "Your score is illegal!");
+            } else {
+                s.addNewScoreIntoDatabase(studentId, courseId, diemso, status);
+            }
         }
     }
 
     public void updateScoreInDatabase(JTextField txtStudentId, JTextField txtCourseId,
             JTextField txtScore, JTextField txtStatus) {
-
         String studentId = txtStudentId.getText();
         String courseId = txtCourseId.getText();
         String score = txtScore.getText();
         String status = txtStatus.getText();
-
         if (studentId.equals("") || courseId.equals("")
                 || score.equals("") || status.equals("")) {
             JOptionPane.showMessageDialog(null, "One or more fields are empty.");

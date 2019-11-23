@@ -1,6 +1,7 @@
 package frames;
 
 import controllers.ScoreController;
+import controllers.StudentController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -9,20 +10,25 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Score;
+import models.Student;
 
 public class ScoreManager extends javax.swing.JFrame {
-    
+
     ScoreController sc;
+    StudentController stdc;
     Score score;
-    
+    Student student;
+
     int pressedX;
     int pressedY;
-    
+
     public ScoreManager() {
-        
+
         sc = new ScoreController();
+        stdc = new StudentController();
         score = new Score();
-        
+        student = new Student();
+
         initComponents();
         setLocationRelativeTo(null);
 
@@ -146,30 +152,32 @@ public class ScoreManager extends javax.swing.JFrame {
                 us.setVisible(true);
             }
         });
-        
+
         btn_view_student.addActionListener((ActionEvent e) -> {
-            ArrayList<Score> list = score.getListScores(0, 0.0, "");
             int clickedRow = table.getSelectedRow();
             if (clickedRow == -1) {
                 JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO VIEW!");
             } else {
+                ArrayList<Student> list = student.getListStudents(1, "B115");
                 String msv = list.get(clickedRow).getStudentId();
-                String mkh = list.get(clickedRow).getCourseId();
-                double ds = list.get(clickedRow).getScore();
-                String tt = list.get(clickedRow).getStatus();
-                UpdateScore us = new UpdateScore();
-                us.loadRowValues(msv, mkh, ds, tt);
-                us.setVisible(true);
+                String ten = list.get(clickedRow).getStudentName();
+                String gt = list.get(clickedRow).getStudentGender();
+                String sn = list.get(clickedRow).getStudentBirthDate();
+                String sdt = list.get(clickedRow).getStudentPhone();
+                String dc = list.get(clickedRow).getStudentAddress();
+                ViewStudent vs = new ViewStudent();
+                vs.loadRowValues(msv, ten, gt, sn, sdt, dc);
+                vs.setVisible(true);
             }
         });
-        
+
     }
-    
+
     public void loadDataToTable() {
         ArrayList<Score> list = score.getListScores(0, 0.0, "");
         displaySearchValues(list);
     }
-    
+
     public void displaySearchValues(ArrayList<Score> list) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         String[] cols = {"Student ID", "Course ID", "Score", "Status"};
@@ -184,7 +192,7 @@ public class ScoreManager extends javax.swing.JFrame {
             i++;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -210,15 +218,11 @@ public class ScoreManager extends javax.swing.JFrame {
         btn_filter = new javax.swing.JButton();
         radio_bigger = new javax.swing.JRadioButton();
         radio_smaller = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
-        btn_update = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        btn_view_student = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        btn_delete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
+        btn_delete = new javax.swing.JButton();
+        btn_update = new javax.swing.JButton();
+        btn_view_student = new javax.swing.JButton();
         btn_view_course = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -434,67 +438,6 @@ public class ScoreManager extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
-
-        btn_update.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btn_update.setForeground(new java.awt.Color(0, 102, 51));
-        btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/renew-45.png"))); // NOI18N
-        btn_update.setText("UPDATE");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_update, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jPanel6.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
-        jPanel6.setPreferredSize(new java.awt.Dimension(186, 67));
-
-        btn_view_student.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btn_view_student.setForeground(new java.awt.Color(204, 204, 0));
-        btn_view_student.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student-45.png"))); // NOI18N
-        btn_view_student.setText("STUDENT");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_view_student, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_view_student, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jPanel7.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
-        jPanel7.setPreferredSize(new java.awt.Dimension(186, 67));
-
-        btn_delete.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btn_delete.setForeground(new java.awt.Color(153, 0, 0));
-        btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete-45.png"))); // NOI18N
-        btn_delete.setText("DELETE");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         table.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -621,26 +564,25 @@ public class ScoreManager extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(table);
 
-        jPanel8.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
+        btn_delete.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_delete.setForeground(new java.awt.Color(153, 0, 0));
+        btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete-45.png"))); // NOI18N
+        btn_delete.setText("DELETE");
+
+        btn_update.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_update.setForeground(new java.awt.Color(0, 102, 51));
+        btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/renew-45.png"))); // NOI18N
+        btn_update.setText("UPDATE");
+
+        btn_view_student.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btn_view_student.setForeground(new java.awt.Color(204, 204, 0));
+        btn_view_student.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student-45.png"))); // NOI18N
+        btn_view_student.setText("STUDENT");
 
         btn_view_course.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btn_view_course.setForeground(new java.awt.Color(153, 0, 255));
         btn_view_course.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/course-45.png"))); // NOI18N
         btn_view_course.setText("COURSE");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(btn_view_course, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_view_course, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -648,10 +590,7 @@ public class ScoreManager extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_reload))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -659,18 +598,20 @@ public class ScoreManager extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 167, Short.MAX_VALUE)))))
+                                .addComponent(btn_delete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_update)
+                                .addGap(37, 37, 37)
+                                .addComponent(btn_view_student)
+                                .addGap(32, 32, 32)
+                                .addComponent(btn_view_course))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_reload)))
                 .addGap(22, 22, 22))
-            .addComponent(lb_header, javax.swing.GroupLayout.DEFAULT_SIZE, 1289, Short.MAX_VALUE)
+            .addComponent(lb_header, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -687,13 +628,13 @@ public class ScoreManager extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_delete)
+                            .addComponent(btn_update)
+                            .addComponent(btn_view_student)
+                            .addComponent(btn_view_course))))
                 .addGap(20, 20, 20))
         );
 
@@ -701,7 +642,7 @@ public class ScoreManager extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1289, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -769,7 +710,7 @@ public class ScoreManager extends javax.swing.JFrame {
             txt_filter_score.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txt_filter_scoreFocusLost
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -818,13 +759,9 @@ public class ScoreManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_exit;
     private javax.swing.JPanel lb_header;
