@@ -144,4 +144,17 @@ public class Student {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
+    public void deleteStudent(String studentId) {
+        ConnectToDatabase cnt = new ConnectToDatabase();
+        Connection c = cnt.getConnection();
+        try {
+            String query = "DELETE FROM student WHERE student_id = '" + studentId + "'";
+            Statement stm = c.createStatement();
+            stm.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "DELETE");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 }
