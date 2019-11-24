@@ -13,22 +13,22 @@ import models.Score;
 import models.Student;
 
 public class ScoreManager extends javax.swing.JFrame {
-
+    
     ScoreController sc;
     StudentController stdc;
     Score score;
     Student student;
-
+    
     int pressedX;
     int pressedY;
-
+    
     public ScoreManager() {
-
+        
         sc = new ScoreController();
         stdc = new StudentController();
         score = new Score();
         student = new Student();
-
+        
         initComponents();
         setLocationRelativeTo(null);
 
@@ -39,7 +39,7 @@ public class ScoreManager extends javax.swing.JFrame {
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
-                System.exit(0);
+                setVisible(false);
             }
         });
 
@@ -152,32 +152,13 @@ public class ScoreManager extends javax.swing.JFrame {
                 us.setVisible(true);
             }
         });
-
-        btn_view_student.addActionListener((ActionEvent e) -> {
-            int clickedRow = table.getSelectedRow();
-            if (clickedRow == -1) {
-                JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO VIEW!");
-            } else {
-                ArrayList<Student> list = student.getListStudents(1, "B115");
-                String msv = list.get(clickedRow).getStudentId();
-                String ten = list.get(clickedRow).getStudentName();
-                String gt = list.get(clickedRow).getStudentGender();
-                String sn = list.get(clickedRow).getStudentBirthDate();
-                String sdt = list.get(clickedRow).getStudentPhone();
-                String dc = list.get(clickedRow).getStudentAddress();
-                ViewStudent vs = new ViewStudent();
-                vs.loadRowValues(msv, ten, gt, sn, sdt, dc);
-                vs.setVisible(true);
-            }
-        });
-
     }
-
+    
     public void loadDataToTable() {
         ArrayList<Score> list = score.getListScores(0, 0.0, "");
         displaySearchValues(list);
     }
-
+    
     public void displaySearchValues(ArrayList<Score> list) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         String[] cols = {"Student ID", "Course ID", "Score", "Status"};
@@ -192,7 +173,7 @@ public class ScoreManager extends javax.swing.JFrame {
             i++;
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -222,8 +203,8 @@ public class ScoreManager extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         btn_delete = new javax.swing.JButton();
         btn_update = new javax.swing.JButton();
-        btn_view_student = new javax.swing.JButton();
-        btn_view_course = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -574,15 +555,25 @@ public class ScoreManager extends javax.swing.JFrame {
         btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/renew-45.png"))); // NOI18N
         btn_update.setText("UPDATE");
 
-        btn_view_student.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btn_view_student.setForeground(new java.awt.Color(204, 204, 0));
-        btn_view_student.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student-45.png"))); // NOI18N
-        btn_view_student.setText("STUDENT");
+        jPanel2.setBackground(new java.awt.Color(255, 102, 102));
 
-        btn_view_course.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btn_view_course.setForeground(new java.awt.Color(153, 0, 255));
-        btn_view_course.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/course-45.png"))); // NOI18N
-        btn_view_course.setText("COURSE");
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Copyright by Group 11");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -600,18 +591,16 @@ public class ScoreManager extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn_delete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(76, 76, 76)
                                 .addComponent(btn_update)
-                                .addGap(37, 37, 37)
-                                .addComponent(btn_view_student)
-                                .addGap(32, 32, 32)
-                                .addComponent(btn_view_course))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_reload)))
                 .addGap(22, 22, 22))
-            .addComponent(lb_header, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE)
+            .addComponent(lb_header, javax.swing.GroupLayout.DEFAULT_SIZE, 1243, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -628,13 +617,13 @@ public class ScoreManager extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_delete)
-                            .addComponent(btn_update)
-                            .addComponent(btn_view_student)
-                            .addComponent(btn_view_course))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btn_delete)
+                                .addComponent(btn_update))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
         );
 
@@ -642,7 +631,7 @@ public class ScoreManager extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1243, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -710,7 +699,7 @@ public class ScoreManager extends javax.swing.JFrame {
             txt_filter_score.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txt_filter_scoreFocusLost
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -751,14 +740,14 @@ public class ScoreManager extends javax.swing.JFrame {
     private javax.swing.JButton btn_search_course_id;
     private javax.swing.JButton btn_search_student_id;
     private javax.swing.JButton btn_update;
-    private javax.swing.JButton btn_view_course;
-    private javax.swing.JButton btn_view_student;
     private javax.swing.JComboBox<String> cbox_sort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

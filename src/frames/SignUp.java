@@ -1,6 +1,7 @@
 package frames;
 
 import controllers.UserController;
+import java.awt.Color;
 import static java.awt.Frame.ICONIFIED;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -10,10 +11,14 @@ public class SignUp extends javax.swing.JFrame {
     
     UserController uc;
     
+    int mousePressX;
+    int mousePressY;
+    
     public SignUp() {
         
         initComponents();
         setLocationRelativeTo(null);
+        uc = new UserController();
         
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
@@ -39,7 +44,7 @@ public class SignUp extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lb_exit = new javax.swing.JLabel();
         lb_mini = new javax.swing.JLabel();
@@ -56,8 +61,18 @@ public class SignUp extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(153, 102, 255));
-        jPanel2.setRequestFocusEnabled(false);
+        header.setBackground(new java.awt.Color(153, 102, 255));
+        header.setRequestFocusEnabled(false);
+        header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                headerMouseDragged(evt);
+            }
+        });
+        header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                headerMousePressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,11 +83,11 @@ public class SignUp extends javax.swing.JFrame {
 
         lb_mini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bar.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(lb_mini)
@@ -80,10 +95,10 @@ public class SignUp extends javax.swing.JFrame {
                 .addComponent(lb_exit)
                 .addGap(16, 16, 16))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lb_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(headerLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(lb_mini, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -94,18 +109,42 @@ public class SignUp extends javax.swing.JFrame {
         txt_username.setForeground(new java.awt.Color(204, 204, 204));
         txt_username.setText("Username");
         txt_username.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        txt_username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_usernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_usernameFocusLost(evt);
+            }
+        });
 
         txt_email.setBackground(new java.awt.Color(255, 255, 255));
         txt_email.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txt_email.setForeground(new java.awt.Color(204, 204, 204));
         txt_email.setText("Email");
         txt_email.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        txt_email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_emailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_emailFocusLost(evt);
+            }
+        });
 
         txt_password.setBackground(new java.awt.Color(255, 255, 255));
         txt_password.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txt_password.setForeground(new java.awt.Color(204, 204, 204));
         txt_password.setText("password");
         txt_password.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        txt_password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_passwordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_passwordFocusLost(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-user-45.png"))); // NOI18N
 
@@ -123,7 +162,7 @@ public class SignUp extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -143,7 +182,7 @@ public class SignUp extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,6 +213,59 @@ public class SignUp extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_usernameFocusGained
+        if(txt_username.getText().equals("Username")){
+            txt_username.setText("");
+            txt_username.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txt_usernameFocusGained
+
+    private void txt_usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_usernameFocusLost
+        if(txt_username.getText().equals("")){
+            txt_username.setText("Username");
+            txt_username.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_usernameFocusLost
+
+    private void txt_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passwordFocusGained
+        if(String.valueOf(txt_password.getPassword()).equals("password")){
+            txt_password.setText("");
+            txt_password.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txt_passwordFocusGained
+
+    private void txt_passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passwordFocusLost
+        if(String.valueOf(txt_password.getPassword()).equals("")){
+            txt_password.setText("password");
+            txt_password.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_passwordFocusLost
+
+    private void txt_emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusGained
+        if(txt_email.getText().equals("Email")){
+            txt_email.setText("");
+            txt_email.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txt_emailFocusGained
+
+    private void txt_emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_emailFocusLost
+        if(txt_email.getText().equals("")){
+            txt_email.setText("Email");
+            txt_email.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_emailFocusLost
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        mousePressX = evt.getX();
+        mousePressY = evt.getY();
+    }//GEN-LAST:event_headerMousePressed
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int ox = evt.getXOnScreen();
+        int oy = evt.getYOnScreen();
+        setLocation(ox - mousePressX, oy - mousePressY);
+    }//GEN-LAST:event_headerMouseDragged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -207,12 +299,12 @@ public class SignUp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_register;
+    private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lb_exit;
     private javax.swing.JLabel lb_mini;
     private javax.swing.JTextField txt_email;

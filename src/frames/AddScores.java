@@ -1,6 +1,7 @@
 package frames;
 
 import controllers.ScoreController;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -111,21 +112,53 @@ public class AddScores extends javax.swing.JFrame {
         txt_status.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txt_status.setForeground(new java.awt.Color(204, 204, 204));
         txt_status.setText("Status");
+        txt_status.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_statusFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_statusFocusLost(evt);
+            }
+        });
 
         txt_student_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_student_id.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txt_student_id.setForeground(new java.awt.Color(204, 204, 204));
         txt_student_id.setText("Student ID");
+        txt_student_id.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_student_idFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_student_idFocusLost(evt);
+            }
+        });
 
         txt_course_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_course_id.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txt_course_id.setForeground(new java.awt.Color(204, 204, 204));
         txt_course_id.setText("Course ID");
+        txt_course_id.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_course_idFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_course_idFocusLost(evt);
+            }
+        });
 
         txt_score.setBackground(new java.awt.Color(255, 255, 255));
         txt_score.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txt_score.setForeground(new java.awt.Color(204, 204, 204));
         txt_score.setText("Score");
+        txt_score.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_scoreFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_scoreFocusLost(evt);
+            }
+        });
 
         btn_add_score.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btn_add_score.setText("Add New Score");
@@ -213,6 +246,63 @@ public class AddScores extends javax.swing.JFrame {
         mousePressX = evt.getX();
         mousePressY = evt.getY();
     }//GEN-LAST:event_lb_headerMousePressed
+
+    private void txt_student_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_student_idFocusGained
+        if(txt_student_id.getText().equals("Student ID")){
+            txt_student_id.setText("");
+            txt_student_id.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txt_student_idFocusGained
+
+    private void txt_student_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_student_idFocusLost
+        if(txt_student_id.getText().equals("")){
+            txt_student_id.setText("Student ID");
+            txt_student_id.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_student_idFocusLost
+
+    private void txt_course_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_course_idFocusLost
+        if(txt_course_id.getText().equals("")){
+            txt_course_id.setText("Course ID");
+            txt_course_id.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_course_idFocusLost
+
+    private void txt_course_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_course_idFocusGained
+        if(txt_course_id.getText().equals("Course ID")){
+            txt_course_id.setText("");
+            txt_course_id.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txt_course_idFocusGained
+
+    private void txt_scoreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_scoreFocusGained
+        if(txt_score.getText().equals("Score")){
+            txt_score.setText("");
+            txt_score.setForeground(Color.BLACK);
+        }
+        
+    }//GEN-LAST:event_txt_scoreFocusGained
+
+    private void txt_scoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_scoreFocusLost
+        if(txt_score.getText().equals("")){
+            txt_score.setText("Score");
+            txt_score.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_scoreFocusLost
+
+    private void txt_statusFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_statusFocusGained
+        if(txt_status.getText().equals("Status")){
+            txt_status.setText("");
+            txt_status.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txt_statusFocusGained
+
+    private void txt_statusFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_statusFocusLost
+        if(txt_status.getText().equals("")){
+            txt_status.setText("Score");
+            txt_status.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_statusFocusLost
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

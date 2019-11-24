@@ -2,7 +2,6 @@ package models;
 
 import connections.ConnectToDatabase;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -125,6 +124,22 @@ public class Student {
             Statement stm = c.createStatement();
             stm.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "ADD NEW STUDENT.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public void updateStudentInfo(String id, String name, String gender,
+            String birthDate, String phone, String address) {
+        ConnectToDatabase cnt = new ConnectToDatabase();
+        Connection c = cnt.getConnection();
+        try {
+            String query = "UPDATE student "
+                    + "SET student_id = '" + id + "', student_name = '" + name + "', student_gender = '" + gender + "', student_birthDate = '" + birthDate + "', student_phone = '" + phone + "', student_address = '" + address + "'"
+                    + " WHERE student_id = '" + id + "'";
+            Statement stm = c.createStatement();
+            stm.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, "UPDATE STUDENT INFO.");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

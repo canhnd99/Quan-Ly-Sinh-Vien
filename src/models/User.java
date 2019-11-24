@@ -58,11 +58,11 @@ public class User {
         Connection c = cnt.getConnection();
         PreparedStatement ps;
         try {
-            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM user WHERE username = ? AND password = ? AND email = ?";
             ps = c.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, pass);
-            ps.setString(2, email);
+            ps.setString(3, email);
             ps.execute();
             ResultSet res = ps.executeQuery();
             if (res.next()) {

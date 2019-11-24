@@ -23,7 +23,7 @@ public class AddNewStudent extends javax.swing.JFrame {
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.exit(0);
+                setVisible(false);
             }
         });
 
