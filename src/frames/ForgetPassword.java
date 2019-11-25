@@ -3,7 +3,6 @@ package frames;
 import connections.ConnectToDatabase;
 import static java.awt.Frame.ICONIFIED;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -43,6 +42,9 @@ public class ForgetPassword extends javax.swing.JFrame {
         
         btn_submit.addActionListener((ActionEvent e) -> {
             String email = txt_email.getText();
+            if(email.equals("")){
+                JOptionPane.showMessageDialog(null, "Enter your email to get password.");
+            }
             getPassword(email);
         });
     }
@@ -54,8 +56,10 @@ public class ForgetPassword extends javax.swing.JFrame {
             String query = "SELECT * FROM user WHERE email = '" + email + "'";
             Statement stm = c.createStatement();
             ResultSet res = stm.executeQuery(query);
-            while (res.next()) {
+            if (res.next()) {
                 JOptionPane.showMessageDialog(null, "PASSWORD: " + res.getString("password"));
+            }else{
+                JOptionPane.showMessageDialog(null, "Email does not exist.");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);

@@ -2,7 +2,7 @@ package frames;
 
 import controllers.StudentController;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -34,6 +34,7 @@ public class StudentManager extends javax.swing.JFrame {
         student = new Student();
 
         loadDataToTable();
+        displayNumberOfStudents();
 
         lb_exit.addMouseListener(new MouseAdapter() {
             @Override
@@ -53,6 +54,7 @@ public class StudentManager extends javax.swing.JFrame {
         btn_reload.addActionListener((ActionEvent e) -> {
             loadDataToTable();
             getNumberOfStudents();
+            displayNumberOfStudents();
         });
 
         /*Tìm kiếm sinh viên theo mã sinh viên*/
@@ -86,6 +88,7 @@ public class StudentManager extends javax.swing.JFrame {
             }
             stdc.addNewStudentIntoDatabase(txt_id, txt_name, gender,
                     jd_date, txt_phone, txt_address);
+            displayNumberOfStudents();
         });
 
         table.addMouseListener(new MouseAdapter() {
@@ -93,30 +96,34 @@ public class StudentManager extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent evt) {
                 ArrayList<Student> list = student.getListStudents(0, "");
                 int clickedRow = table.getSelectedRow();
-                String msv = list.get(clickedRow).getStudentId();
-                String tsv = list.get(clickedRow).getStudentName();
-                String gt = list.get(clickedRow).getStudentGender();
-                String ns = list.get(clickedRow).getStudentBirthDate();
-                String sdt = list.get(clickedRow).getStudentPhone();
-                String dc = list.get(clickedRow).getStudentAddress();
-                txt_id.setText(msv);
-                txt_name.setText(tsv);
-                if (gt.equals("Male")) {
-                    rb_male.setSelected(true);
-                    rb_female.setSelected(false);
+                if (clickedRow < 0 || clickedRow > list.size()-1) {
+                    JOptionPane.showMessageDialog(null, "Empty row.");
                 } else {
-                    rb_female.setSelected(true);
-                    rb_male.setSelected(false);
+                    String msv = list.get(clickedRow).getStudentId();
+                    String tsv = list.get(clickedRow).getStudentName();
+                    String gt = list.get(clickedRow).getStudentGender();
+                    String ns = list.get(clickedRow).getStudentBirthDate();
+                    String sdt = list.get(clickedRow).getStudentPhone();
+                    String dc = list.get(clickedRow).getStudentAddress();
+                    txt_id.setText(msv);
+                    txt_name.setText(tsv);
+                    if (gt.equals("Male")) {
+                        rb_male.setSelected(true);
+                        rb_female.setSelected(false);
+                    } else {
+                        rb_female.setSelected(true);
+                        rb_male.setSelected(false);
+                    }
+                    Date date;
+                    try {
+                        date = new SimpleDateFormat("yyyy-MM-dd").parse(ns);
+                        jd_date.setDate(date);
+                    } catch (ParseException ex) {
+                        JOptionPane.showMessageDialog(null, ex);
+                    }
+                    txt_phone.setText(sdt);
+                    txt_address.setText(dc);
                 }
-                Date date;
-                try {
-                    date = new SimpleDateFormat("yyyy-MM-dd").parse(ns);
-                    jd_date.setDate(date);
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(null, ex);
-                }
-                txt_phone.setText(sdt);
-                txt_address.setText(dc);
             }
         });
 
@@ -132,6 +139,7 @@ public class StudentManager extends javax.swing.JFrame {
         btn_delete.addActionListener((ActionEvent e) -> {
             String studentId = txt_id.getText().toUpperCase();
             student.deleteStudent(studentId);
+            displayNumberOfStudents();
         });
 
         btn_clear.addActionListener((ActionEvent e) -> {
@@ -143,11 +151,13 @@ public class StudentManager extends javax.swing.JFrame {
             txt_address.setText("");
         });
 
-        /*Hiển thị số lượng sinh viên*/
+    }
+    
+    /*Hiển thị số lượng sinh viên*/
+    public void displayNumberOfStudents(){
         int slsv = getNumberOfStudents();
         txt_number_students.setText(slsv + "");
         txt_number_students.setEditable(false);
-
     }
 
     public int getNumberOfStudents() {
@@ -223,11 +233,29 @@ public class StudentManager extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 204, 255));
         jPanel1.setToolTipText("");
 
+        txt_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_id.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txt_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_idKeyPressed(evt);
+            }
+        });
 
+        txt_name.setBackground(new java.awt.Color(255, 255, 255));
         txt_name.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txt_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_nameKeyPressed(evt);
+            }
+        });
 
+        txt_phone.setBackground(new java.awt.Color(255, 255, 255));
         txt_phone.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txt_phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_phoneKeyPressed(evt);
+            }
+        });
 
         rb_male.setText("Male");
 
@@ -331,8 +359,10 @@ public class StudentManager extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Number of student");
 
+        txt_number_students.setBackground(new java.awt.Color(255, 255, 255));
         txt_number_students.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        txt_search.setBackground(new java.awt.Color(255, 255, 255));
         txt_search.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-google-web-search-35.png"))); // NOI18N
@@ -380,9 +410,15 @@ public class StudentManager extends javax.swing.JFrame {
             .addComponent(lb_mini, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        txt_address.setBackground(new java.awt.Color(255, 255, 255));
         txt_address.setColumns(20);
         txt_address.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txt_address.setRows(5);
+        txt_address.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_addressKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(txt_address);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -538,6 +574,30 @@ public class StudentManager extends javax.swing.JFrame {
         int oy = evt.getYOnScreen();
         setLocation(ox - mousePressedX, oy - mousePressedY);
     }//GEN-LAST:event_headerMouseDragged
+
+    private void txt_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_idKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_name.requestFocus();
+        }
+    }//GEN-LAST:event_txt_idKeyPressed
+
+    private void txt_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nameKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_phone.requestFocus();
+        }
+    }//GEN-LAST:event_txt_nameKeyPressed
+
+    private void txt_phoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_phoneKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_address.requestFocus();
+        }
+    }//GEN-LAST:event_txt_phoneKeyPressed
+
+    private void txt_addressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_addressKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_id.requestFocus();
+        }
+    }//GEN-LAST:event_txt_addressKeyPressed
 
     /**
      * @param args the command line arguments

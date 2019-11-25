@@ -9,8 +9,8 @@ public class ScoreController {
     public void addNewScoreIntoDatabase(JTextField txtStudentId, JTextField txtCourseId,
             JTextField txtScore, JTextField txtStatus) {
 
-        String studentId = txtStudentId.getText();
-        String courseId = txtCourseId.getText();
+        String studentId = txtStudentId.getText().toUpperCase();
+        String courseId = txtCourseId.getText().toUpperCase();
         String score = txtScore.getText();
         String status = txtStatus.getText();
 

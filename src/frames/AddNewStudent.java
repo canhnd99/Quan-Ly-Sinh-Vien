@@ -4,6 +4,7 @@ import controllers.StudentController;
 import java.awt.Color;
 import static java.awt.Frame.ICONIFIED;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -152,6 +153,11 @@ public class AddNewStudent extends javax.swing.JFrame {
                 txt_student_nameFocusLost(evt);
             }
         });
+        txt_student_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_student_nameKeyPressed(evt);
+            }
+        });
 
         txt_student_phone.setBackground(new java.awt.Color(255, 255, 255));
         txt_student_phone.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -165,6 +171,11 @@ public class AddNewStudent extends javax.swing.JFrame {
                 txt_student_phoneFocusLost(evt);
             }
         });
+        txt_student_phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_student_phoneKeyPressed(evt);
+            }
+        });
 
         txt_student_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_student_id.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -176,6 +187,11 @@ public class AddNewStudent extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_student_idFocusLost(evt);
+            }
+        });
+        txt_student_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_student_idKeyPressed(evt);
             }
         });
 
@@ -219,6 +235,11 @@ public class AddNewStudent extends javax.swing.JFrame {
                 txt_addressFocusLost(evt);
             }
         });
+        txt_address.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_addressKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(txt_address);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -245,12 +266,12 @@ public class AddNewStudent extends javax.swing.JFrame {
                             .addComponent(txt_student_id)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(date_birth, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(rb_male, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(55, 55, 55)
-                                        .addComponent(rb_female))
-                                    .addComponent(date_birth, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(rb_female)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(19, 19, 19))
         );
@@ -375,6 +396,30 @@ public class AddNewStudent extends javax.swing.JFrame {
         mousepressX = evt.getX();
         mousepressY = evt.getY();
     }//GEN-LAST:event_pn_headerMousePressed
+
+    private void txt_student_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_student_idKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_student_name.requestFocus();
+        }
+    }//GEN-LAST:event_txt_student_idKeyPressed
+
+    private void txt_student_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_student_nameKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_student_phone.requestFocus();
+        }
+    }//GEN-LAST:event_txt_student_nameKeyPressed
+
+    private void txt_student_phoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_student_phoneKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_address.requestFocus();
+        }
+    }//GEN-LAST:event_txt_student_phoneKeyPressed
+
+    private void txt_addressKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_addressKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_student_id.requestFocus();
+        }
+    }//GEN-LAST:event_txt_addressKeyPressed
 
     /**
      * @param args the command line arguments

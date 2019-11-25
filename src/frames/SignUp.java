@@ -4,6 +4,7 @@ import controllers.UserController;
 import java.awt.Color;
 import static java.awt.Frame.ICONIFIED;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -60,6 +61,7 @@ public class SignUp extends javax.swing.JFrame {
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255), 2));
 
         header.setBackground(new java.awt.Color(153, 102, 255));
         header.setRequestFocusEnabled(false);
@@ -89,7 +91,7 @@ public class SignUp extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addComponent(lb_mini)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lb_exit)
@@ -117,6 +119,11 @@ public class SignUp extends javax.swing.JFrame {
                 txt_usernameFocusLost(evt);
             }
         });
+        txt_username.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_usernameKeyPressed(evt);
+            }
+        });
 
         txt_email.setBackground(new java.awt.Color(255, 255, 255));
         txt_email.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -131,6 +138,11 @@ public class SignUp extends javax.swing.JFrame {
                 txt_emailFocusLost(evt);
             }
         });
+        txt_email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_emailKeyPressed(evt);
+            }
+        });
 
         txt_password.setBackground(new java.awt.Color(255, 255, 255));
         txt_password.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -143,6 +155,11 @@ public class SignUp extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_passwordFocusLost(evt);
+            }
+        });
+        txt_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_passwordKeyPressed(evt);
             }
         });
 
@@ -195,7 +212,7 @@ public class SignUp extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(btn_register, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
@@ -266,6 +283,24 @@ public class SignUp extends javax.swing.JFrame {
         int oy = evt.getYOnScreen();
         setLocation(ox - mousePressX, oy - mousePressY);
     }//GEN-LAST:event_headerMouseDragged
+
+    private void txt_usernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usernameKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_password.requestFocus();
+        }
+    }//GEN-LAST:event_txt_usernameKeyPressed
+
+    private void txt_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passwordKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_email.requestFocus();
+        }
+    }//GEN-LAST:event_txt_passwordKeyPressed
+
+    private void txt_emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emailKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_username.requestFocus();
+        }
+    }//GEN-LAST:event_txt_emailKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -3,17 +3,18 @@ package frames;
 import controllers.ScoreController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class AddScores extends javax.swing.JFrame {
+public class AddNewScores extends javax.swing.JFrame {
 
     int mousePressX;
     int mousePressY;
 
     ScoreController sc;
 
-    public AddScores() {
+    public AddNewScores() {
 
         initComponents();
         setLocationRelativeTo(null);
@@ -120,6 +121,11 @@ public class AddScores extends javax.swing.JFrame {
                 txt_statusFocusLost(evt);
             }
         });
+        txt_status.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_statusKeyPressed(evt);
+            }
+        });
 
         txt_student_id.setBackground(new java.awt.Color(255, 255, 255));
         txt_student_id.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -131,6 +137,11 @@ public class AddScores extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_student_idFocusLost(evt);
+            }
+        });
+        txt_student_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_student_idKeyPressed(evt);
             }
         });
 
@@ -146,6 +157,11 @@ public class AddScores extends javax.swing.JFrame {
                 txt_course_idFocusLost(evt);
             }
         });
+        txt_course_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_course_idKeyPressed(evt);
+            }
+        });
 
         txt_score.setBackground(new java.awt.Color(255, 255, 255));
         txt_score.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -157,6 +173,11 @@ public class AddScores extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_scoreFocusLost(evt);
+            }
+        });
+        txt_score.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_scoreKeyPressed(evt);
             }
         });
 
@@ -248,61 +269,85 @@ public class AddScores extends javax.swing.JFrame {
     }//GEN-LAST:event_lb_headerMousePressed
 
     private void txt_student_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_student_idFocusGained
-        if(txt_student_id.getText().equals("Student ID")){
+        if (txt_student_id.getText().equals("Student ID")) {
             txt_student_id.setText("");
             txt_student_id.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_txt_student_idFocusGained
 
     private void txt_student_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_student_idFocusLost
-        if(txt_student_id.getText().equals("")){
+        if (txt_student_id.getText().equals("")) {
             txt_student_id.setText("Student ID");
             txt_student_id.setForeground(Color.LIGHT_GRAY);
         }
     }//GEN-LAST:event_txt_student_idFocusLost
 
     private void txt_course_idFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_course_idFocusLost
-        if(txt_course_id.getText().equals("")){
+        if (txt_course_id.getText().equals("")) {
             txt_course_id.setText("Course ID");
             txt_course_id.setForeground(Color.LIGHT_GRAY);
         }
     }//GEN-LAST:event_txt_course_idFocusLost
 
     private void txt_course_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_course_idFocusGained
-        if(txt_course_id.getText().equals("Course ID")){
+        if (txt_course_id.getText().equals("Course ID")) {
             txt_course_id.setText("");
             txt_course_id.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_txt_course_idFocusGained
 
     private void txt_scoreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_scoreFocusGained
-        if(txt_score.getText().equals("Score")){
+        if (txt_score.getText().equals("Score")) {
             txt_score.setText("");
             txt_score.setForeground(Color.BLACK);
         }
-        
+
     }//GEN-LAST:event_txt_scoreFocusGained
 
     private void txt_scoreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_scoreFocusLost
-        if(txt_score.getText().equals("")){
+        if (txt_score.getText().equals("")) {
             txt_score.setText("Score");
             txt_score.setForeground(Color.LIGHT_GRAY);
         }
     }//GEN-LAST:event_txt_scoreFocusLost
 
     private void txt_statusFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_statusFocusGained
-        if(txt_status.getText().equals("Status")){
+        if (txt_status.getText().equals("Status")) {
             txt_status.setText("");
             txt_status.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_txt_statusFocusGained
 
     private void txt_statusFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_statusFocusLost
-        if(txt_status.getText().equals("")){
-            txt_status.setText("Score");
+        if (txt_status.getText().equals("")) {
+            txt_status.setText("Status");
             txt_status.setForeground(Color.LIGHT_GRAY);
         }
     }//GEN-LAST:event_txt_statusFocusLost
+
+    private void txt_student_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_student_idKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_course_id.requestFocus();
+        }
+    }//GEN-LAST:event_txt_student_idKeyPressed
+
+    private void txt_course_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_course_idKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_score.requestFocus();
+        }
+    }//GEN-LAST:event_txt_course_idKeyPressed
+
+    private void txt_scoreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_scoreKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_status.requestFocus();
+        }
+    }//GEN-LAST:event_txt_scoreKeyPressed
+
+    private void txt_statusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_statusKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            txt_student_id.requestFocus();
+        }
+    }//GEN-LAST:event_txt_statusKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -318,20 +363,22 @@ public class AddScores extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddNewScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddNewScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddNewScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddNewScores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AddScores().setVisible(true);
+            new AddNewScores().setVisible(true);
         });
     }
 

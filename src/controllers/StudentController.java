@@ -14,7 +14,7 @@ public class StudentController {
     public void addNewStudentIntoDatabase(JTextField txt_id, JTextField txt_name,
             String gender, JDateChooser birthDate, JTextField txt_phone, JTextArea txt_address) {
 
-        String msv = txt_id.getText();
+        String msv = txt_id.getText().toUpperCase();
         String ten = txt_name.getText();
         String gt = gender;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -25,6 +25,8 @@ public class StudentController {
         if (msv.equals("") || ten.equals("")
                 || ns.equals("") || sdt.equals("") || dc.equals("")) {
             JOptionPane.showMessageDialog(null, "One or more field are empty!");
+        } else if ((sdt.length() > 10 || sdt.length() < 9) && !sdt.startsWith("0")) {
+            JOptionPane.showMessageDialog(null, "Your phone number is incorrect!");
         } else {
             std.addNewStudentIntoDatabase(msv, ten, gt, ns, sdt, dc);
         }
@@ -32,7 +34,7 @@ public class StudentController {
 
     public void updateStudentInfo(JTextField txt_id, JTextField txt_name,
             String gender, JDateChooser birthDate, JTextField txt_phone, JTextArea txt_address) {
-        
+
         String msv = txt_id.getText();
         String ten = txt_name.getText();
         String gt = gender;
@@ -40,7 +42,7 @@ public class StudentController {
         String ns = dateFormat.format(birthDate.getDate());
         String sdt = txt_phone.getText();
         String dc = txt_address.getText();
-        
+
         if (msv.equals("") || ten.equals("")
                 || ns.equals("") || sdt.equals("") || dc.equals("")) {
             JOptionPane.showMessageDialog(null, "One or more field are empty!");

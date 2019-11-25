@@ -103,19 +103,18 @@ public class Score {
         ConnectToDatabase cnt = new ConnectToDatabase();
         Connection c = cnt.getConnection();
         try {
-
-            String query1 = "SELECT * FROM student WHERE student_id = '" + studentId + "'";
-            String query = "INSERT INTO score VALUES ('" + studentId + "', '" + courseId + "', '" + score + "', '" + status + "')";
+            String selectQuery = "SELECT * FROM student, course WHERE student.student_id = '" + studentId + "' AND course.course_id = '" + courseId + "'";
+            String updateQuery = "INSERT INTO score VALUES ('" + studentId + "', '" + courseId + "', '" + score + "', '" + status + "')";
             Statement stm = c.createStatement();
-            ResultSet res1 = stm.executeQuery(query1);
+            ResultSet res1 = stm.executeQuery(selectQuery);
             if (res1.next()) {
-                stm.executeUpdate(query);
+                stm.executeUpdate(updateQuery);
                 JOptionPane.showMessageDialog(null, "ADD NEW SCORE.");
             } else {
                 JOptionPane.showMessageDialog(null, "Student ID or Course ID is incorrect!");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Student or course code matches.");
         }
     }
 
@@ -147,7 +146,6 @@ public class Score {
                         + " WHERE student_id = '" + studentId + "' AND course_id = '" + courseId + "'";
                 Statement stm = c.createStatement();
                 stm.executeUpdate(query);
-                JOptionPane.showMessageDialog(null, "UPDATE!");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);

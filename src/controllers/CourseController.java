@@ -29,8 +29,8 @@ public class CourseController {
     public void addNewStudentCourseIntoDatabase(JTextField txtStudentId, JTextField txtCourseId,
             JTextField txtCourseName, JTextField txtCourseLevel, JTextField txtCourseTime) {
 
-        String studentId = txtStudentId.getText();
-        String courseId = txtCourseId.getText();
+        String studentId = txtStudentId.getText().toUpperCase();
+        String courseId = txtCourseId.getText().toUpperCase();
         String courseName = txtCourseName.getText();
         String courseLevel = txtCourseLevel.getText();
         String courseTime = txtCourseTime.getText();

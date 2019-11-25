@@ -13,22 +13,22 @@ import models.Score;
 import models.Student;
 
 public class ScoreManager extends javax.swing.JFrame {
-    
+
     ScoreController sc;
     StudentController stdc;
     Score score;
     Student student;
-    
+
     int pressedX;
     int pressedY;
-    
+
     public ScoreManager() {
-        
+
         sc = new ScoreController();
         stdc = new StudentController();
         score = new Score();
         student = new Student();
-        
+
         initComponents();
         setLocationRelativeTo(null);
 
@@ -128,7 +128,9 @@ public class ScoreManager extends javax.swing.JFrame {
         btn_delete.addActionListener((ActionEvent e) -> {
             ArrayList<Score> list = score.getListScores(0, 0.0, "");
             int clickedRow = table.getSelectedRow();
-            if (clickedRow == -1) {
+            if (clickedRow < 0 || clickedRow > list.size() - 1) {
+                JOptionPane.showMessageDialog(null, "Empty row.");
+            } else if (clickedRow == -1) {
                 JOptionPane.showMessageDialog(null, "PLEASE CHOOSE A ROW TO DELETE!");
             } else {
                 String studentId = list.get(clickedRow).getStudentId();
@@ -153,12 +155,12 @@ public class ScoreManager extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void loadDataToTable() {
         ArrayList<Score> list = score.getListScores(0, 0.0, "");
         displaySearchValues(list);
     }
-    
+
     public void displaySearchValues(ArrayList<Score> list) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         String[] cols = {"Student ID", "Course ID", "Score", "Status"};
@@ -173,7 +175,7 @@ public class ScoreManager extends javax.swing.JFrame {
             i++;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -699,7 +701,7 @@ public class ScoreManager extends javax.swing.JFrame {
             txt_filter_score.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txt_filter_scoreFocusLost
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

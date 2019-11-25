@@ -4,6 +4,7 @@ import controllers.UserController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -146,6 +147,11 @@ public class SignIn extends javax.swing.JFrame {
                 txt_usernameFocusLost(evt);
             }
         });
+        txt_username.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_usernameKeyPressed(evt);
+            }
+        });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/checked_user_35.png"))); // NOI18N
 
@@ -162,6 +168,11 @@ public class SignIn extends javax.swing.JFrame {
                 txt_passwordFocusLost(evt);
             }
         });
+        txt_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_passwordKeyPressed(evt);
+            }
+        });
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/password_35.png"))); // NOI18N
 
@@ -170,8 +181,8 @@ public class SignIn extends javax.swing.JFrame {
         lb_forgot.setText("Forgot Password?");
 
         btn_login.setBackground(new java.awt.Color(102, 153, 255));
-        btn_login.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btn_login.setForeground(new java.awt.Color(102, 102, 102));
+        btn_login.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        btn_login.setForeground(new java.awt.Color(255, 255, 255));
         btn_login.setText("LOGIN");
         btn_login.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -199,6 +210,11 @@ public class SignIn extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_emailFocusLost(evt);
+            }
+        });
+        txt_email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_emailKeyPressed(evt);
             }
         });
 
@@ -501,6 +517,24 @@ public class SignIn extends javax.swing.JFrame {
         
         setLocation(ox - mousePressedX, oy - mousePressedY);
     }//GEN-LAST:event_headerMouseDragged
+
+    private void txt_usernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usernameKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_password.requestFocus();
+        }
+    }//GEN-LAST:event_txt_usernameKeyPressed
+
+    private void txt_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passwordKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_email.requestFocus();
+        }
+    }//GEN-LAST:event_txt_passwordKeyPressed
+
+    private void txt_emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emailKeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            txt_username.requestFocus();
+        }
+    }//GEN-LAST:event_txt_emailKeyPressed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
